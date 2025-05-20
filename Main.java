@@ -2,11 +2,26 @@ import java.util.Scanner;
 
 import model.Product;
 import model.InventoryManager;
+import model.Customer;
 
 class Main {
     private static InventoryManager inventoryManager = new InventoryManager();
 
+    // Main method to run the Warehouse Management System
     public static void main(String[] args) {
+        // Create a Customer
+        Customer customer = new Customer(1, "Alice Smith", "555-1234", "123 Main St");
+
+        // Access and print fields
+        System.out.println("Customer ID: " + customer.getCustomerId());
+        System.out.println("Name: " + customer.getName());
+        System.out.println("Contact: " + customer.getContact());
+        System.out.println("Address: " + customer.getAddress());
+
+        // Modify and print again
+        customer.setAddress("456 Elm St");
+        System.out.println("Updated Address: " + customer.getAddress());
+
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
@@ -29,7 +44,7 @@ class Main {
         System.out.println("--------------//");
 
     }
-
+    // Method to restock a product
     private static void restockProduct(Scanner scanner) {
         if (inventoryManager.isInventoryEmpty()) {
             System.out.println("Sorry, there are no products in the system. Please add a product first.");
@@ -38,7 +53,7 @@ class Main {
 
         System.out.println("Current Inventory:");
         inventoryManager.printInventory();
-
+        
         System.out.print("Enter the ID of the product you want to restock: ");
         int productId = scanner.nextInt();
         System.out.print("Enter the quantity to add: ");
@@ -46,7 +61,8 @@ class Main {
 
         inventoryManager.restockProduct(productId, quantity);
     }
-
+    
+    // Method to add a new product
     private static void addProduct(Scanner scanner) {
         System.out.print("Enter product name: ");
         String name = scanner.nextLine();
@@ -65,7 +81,7 @@ class Main {
             System.out.println("Failed to add product. Inventory might be full.");
         }
     }
-
+    // Method to print the inventory
     private static void printInventory(Scanner scanner) {
         if (inventoryManager.isInventoryEmpty()) {
             System.out.println("Sorry, there are no products in the system. Please add a product first.");
