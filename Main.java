@@ -22,10 +22,18 @@ class Main {
         customer.setAddress("456 Elm St");
         System.out.println("Updated Address: " + customer.getAddress());
 
+        //Create a few relevant products for BNU Industry Solutions Ltd., related to industrial equipment and supplies so the inventory is not empty at the start
+        Product product1 = new Product("Drill", 101, 1500, 10);
+        Product product2 = new Product("Helmet", 102, 500, 5);
+        Product product3 = new Product("Safety Glasses", 103, 100, 100);
+        inventoryManager.addProduct(product1);
+        inventoryManager.addProduct(product2); 
+        inventoryManager.addProduct(product3);
+
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("--------------//");
+            System.out.println("--------------------------//");
             System.out.println("Welcome to the Warehouse Management System!");
             System.out.println("1. Add Product");
             System.out.println("2. Restock Product");
@@ -37,14 +45,38 @@ class Main {
             switch (choice) {
                 case 1 -> addProduct(scanner);
                 case 2 -> restockProduct(scanner);
-                case 3 -> inventoryManager.printInventory();
+                case 3 -> {
+                System.out.println("Here is a list of the items currently in the warehouse stock:");    
+                inventoryManager.printInventory();
+                }
             }
         } while (choice != 0);
         System.out.println("Exiting the system. Goodbye!");
         System.out.println("--------------//");
 
     }
-    // Method to restock a product
+    
+    // Method to add a new product for case 1
+    private static void addProduct(Scanner scanner) {
+        System.out.print("Enter product name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter product ID: ");
+        int id = scanner.nextInt();
+        System.out.print("Enter product price: ");
+        int price = scanner.nextInt();
+        System.out.print("Enter stock level: ");
+        int stockLevel = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        Product product = new Product(name, id, price, stockLevel);
+        if (inventoryManager.addProduct(product)) {
+            System.out.println("Product added: " + product.getName());
+        } else {
+            System.out.println("Failed to add product. Inventory might be full. Please try again.");
+        }
+    } 
+    
+    // Method to restock a product for case 2
     private static void restockProduct(Scanner scanner) {
         if (inventoryManager.isInventoryEmpty()) {
             System.out.println("Sorry, there are no products in the system. Please add a product first.");
@@ -61,27 +93,8 @@ class Main {
 
         inventoryManager.restockProduct(productId, quantity);
     }
-    
-    // Method to add a new product
-    private static void addProduct(Scanner scanner) {
-        System.out.print("Enter product name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter product ID: ");
-        int id = scanner.nextInt();
-        System.out.print("Enter product price: ");
-        int price = scanner.nextInt();
-        System.out.print("Enter stock level: ");
-        int stockLevel = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
 
-        Product product = new Product(name, id, price, stockLevel);
-        if (inventoryManager.addProduct(product)) {
-            System.out.println("Product added: " + product.getName());
-        } else {
-            System.out.println("Failed to add product. Inventory might be full.");
-        }
-    }
-    // Method to print the inventory
+    // Method to print the inventory for case 3
     private static void printInventory(Scanner scanner) {
         if (inventoryManager.isInventoryEmpty()) {
             System.out.println("Sorry, there are no products in the system. Please add a product first.");
@@ -89,4 +102,6 @@ class Main {
         }
         inventoryManager.printInventory();
     }
+
+
 }
