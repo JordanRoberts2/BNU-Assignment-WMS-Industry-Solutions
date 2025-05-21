@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import model.Product;
+import model.Supplier;
 import model.InventoryManager;
 import model.Customer;
 
@@ -9,6 +10,9 @@ class Main {
 
     // Main method to run the Warehouse Management System
     public static void main(String[] args) {
+
+       LearnForLoop();
+
         // Create a Customer
         Customer customer = new Customer(1, "Alice Smith", "555-1234", "123 Main St");
 
@@ -38,6 +42,11 @@ class Main {
             System.out.println("1. Add Product");
             System.out.println("2. Restock Product");
             System.out.println("3. View Inventory");
+            System.out.println("4. Add Supplier");// Not implemented
+            System.out.println("5. Purchase Order");// Not implemented
+            System.out.println("6. Customer Orders");// Not implemented
+            System.out.println("7. Generate Finance Report");// Not implemented
+            System.out.println("8. Low stock");// Not implemented
             System.out.println("0. Exit");
             choice = scanner.nextInt();
             scanner.nextLine();
@@ -45,11 +54,12 @@ class Main {
             switch (choice) {
                 case 1 -> addProduct(scanner);
                 case 2 -> restockProduct(scanner);
-                case 3 -> {
-                System.out.println("Here is a list of the items currently in the warehouse stock:");    
-                inventoryManager.printInventory();
+                case 3 -> viewInventory(scanner);
+                case 4 -> addSupplier(scanner);
+                // Case 6 Purchase Order
+
                 }
-            }
+            
         } while (choice != 0);
         System.out.println("Exiting the system. Goodbye!");
         System.out.println("--------------//");
@@ -94,14 +104,36 @@ class Main {
         inventoryManager.restockProduct(productId, quantity);
     }
 
-    // Method to print the inventory for case 3
-    private static void printInventory(Scanner scanner) {
+     // Method to print the inventory for case 3
+    private static void viewInventory(Scanner scanner) {
         if (inventoryManager.isInventoryEmpty()) {
             System.out.println("Sorry, there are no products in the system. Please add a product first.");
             return;
         }
+        System.out.println("Current Inventory:");
         inventoryManager.printInventory();
-    }
+      
+    } 
 
+    // Method to add a supplier for case 4
+    private static void addSupplier (Scanner scanner) {
+         System.out.print("Enter supplier name: ");
+         String name = scanner.nextLine();
+         System.out.print("Enter supplier ID: ");
+         int id = scanner.nextInt();
+         System.out.print ("Enter supplier contact details: ");
+         String contact = scanner.nextLine();
+         System.out.println("Supplier added: " + name);
+
+         Supplier supplier = new Supplier(id, name, contact);
+         
+    }
+    
+    public static void LearnForLoop()   
+    {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("Sticker number " + (i + 1));
+        }
+    }
 
 }

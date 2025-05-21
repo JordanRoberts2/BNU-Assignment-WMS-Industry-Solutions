@@ -1,6 +1,7 @@
 package model;
 
-public class Customer extends Person {
+// Customer now extends Person to show inheritance
+public class Customer extends Person { 
     private int customerId;
     private String address;
 

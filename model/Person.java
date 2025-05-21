@@ -3,6 +3,7 @@ package model;
 public class Person {
     protected String name;
     protected String contact;
+    //add ID here for superclass?
 
     public Person(String name, String contact) {
         this.name = name;

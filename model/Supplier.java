@@ -1,6 +1,6 @@
 package model;
 
-// Supplier now extends Person to demonstrate inheritance
+// Supplier now extends Person to show inheritance
 public class Supplier extends Person {
     private int id;
     // order history tbc
@@ -17,4 +17,6 @@ public class Supplier extends Person {
     public void setId(int id) {
         this.id = id;
     }
+
+    
 }
