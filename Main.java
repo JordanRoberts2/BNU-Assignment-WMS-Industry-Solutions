@@ -2,16 +2,19 @@ import java.util.Scanner;
 
 import model.Product;
 import model.Supplier;
+import model.SupplierManager;
 import model.InventoryManager;
 import model.Customer;
 
 class Main {
     private static InventoryManager inventoryManager = new InventoryManager();
+    private static SupplierManager supplierManager = new SupplierManager();
+
 
     // Main method to run the Warehouse Management System
     public static void main(String[] args) {
 
-       LearnForLoop();
+      // LearnForLoop();
 
         // Create a Customer
         Customer customer = new Customer(1, "Alice Smith", "555-1234", "123 Main St");
@@ -42,8 +45,12 @@ class Main {
             System.out.println("1. Add Product");
             System.out.println("2. Restock Product");
             System.out.println("3. View Inventory");
-            System.out.println("4. Add Supplier");// Not implemented
-            System.out.println("5. Purchase Order");// Not implemented
+            System.out.println("4. Add Supplier");
+            
+            System.out.println("5. View Supplier");
+            //update suplpier
+            //delete supplier 
+            //purchase order
             System.out.println("6. Customer Orders");// Not implemented
             System.out.println("7. Generate Finance Report");// Not implemented
             System.out.println("8. Low stock");// Not implemented
@@ -55,9 +62,9 @@ class Main {
                 case 1 -> addProduct(scanner);
                 case 2 -> restockProduct(scanner);
                 case 3 -> viewInventory(scanner);
-                case 4 -> addSupplier(scanner);
+                case 4 -> addSupplierInfo(scanner);
+                case 5 -> viewSupplierInfo(scanner);
                 // Case 6 Purchase Order
-
                 }
             
         } while (choice != 0);
@@ -116,24 +123,25 @@ class Main {
     } 
 
     // Method to add a supplier for case 4
-    private static void addSupplier (Scanner scanner) {
+    private static void addSupplierInfo(Scanner scanner) {
          System.out.print("Enter supplier name: ");
          String name = scanner.nextLine();
          System.out.print("Enter supplier ID: ");
          int id = scanner.nextInt();
-         System.out.print ("Enter supplier contact details: ");
+         System.out.print("Enter supplier contact details: ");
          String contact = scanner.nextLine();
-         System.out.println("Supplier added: " + name);
+         scanner.nextLine(); 
 
          Supplier supplier = new Supplier(id, name, contact);
-         
+         System.out.println("The supplier " + supplier.getName() + " has been added to the system.");
     }
-    
-    public static void LearnForLoop()   
+
+   /*  public static void LearnForLoop()   
     {
         for (int i = 1; i <= 10; i++) {
             System.out.println("Sticker number " + (i + 1));
         }
-    }
+    }*/
+
 
 }

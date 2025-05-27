@@ -17,6 +17,5 @@ public class Supplier extends Person {
     public void setId(int id) {
         this.id = id;
     }
-
     
 }
