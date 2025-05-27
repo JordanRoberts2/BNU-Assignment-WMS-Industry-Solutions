@@ -46,12 +46,12 @@ class Main {
             System.out.println("2. Restock Product");
             System.out.println("3. View Inventory");
             System.out.println("4. Add Supplier");
-            
             System.out.println("5. View Supplier");
+            System.out.println("6. View all Suppliers");// Not implemented
             //update suplpier
             //delete supplier 
             //purchase order
-            System.out.println("6. Customer Orders");// Not implemented
+            
             System.out.println("7. Generate Finance Report");// Not implemented
             System.out.println("8. Low stock");// Not implemented
             System.out.println("0. Exit");
@@ -59,11 +59,12 @@ class Main {
             scanner.nextLine();
 
             switch (choice) {
-                case 1 -> addProduct(scanner);
-                case 2 -> restockProduct(scanner);
-                case 3 -> viewInventory(scanner);
-                case 4 -> addSupplierInfo(scanner);
-                case 5 -> viewSupplierInfo(scanner);
+                case 1 -> addProduct(scanner); // Add a new product
+                case 2 -> restockProduct(scanner); // Restock a product
+                case 3 -> viewInventory(scanner); // View the inventory
+                case 4 -> addSupplierInfo(scanner); // Add a new supplier
+                case 5 -> viewSupplierInfo(scanner); // View one supplier 
+                case 6 -> supplierManager.printSupplierInfo(); // View all suppliers
                 // Case 6 Purchase Order
                 }
             
@@ -135,6 +136,22 @@ class Main {
          Supplier supplier = new Supplier(id, name, contact);
          System.out.println("The supplier " + supplier.getName() + " has been added to the system.");
     }
+
+        // Method to view supplier information for case 5
+        private static void viewSupplierInfo(Scanner scanner) {
+            System.out.println("Enter supplier name to view details: ");
+            String name = scanner.nextLine();
+            // Assuming we have a method in SupplierManager to get supplier by name
+            Supplier supplier = supplierManager.getSupplier(name);
+            if (supplier != null) {
+                System.out.println("Supplier ID: " + supplier.getId());
+                System.out.println("Name: " + supplier.getName());
+                System.out.println("Contact: " + supplier.getContact());
+            } else {
+                System.out.println("Supplier not found.");
+            }
+        }
+    
 
    /*  public static void LearnForLoop()   
     {
