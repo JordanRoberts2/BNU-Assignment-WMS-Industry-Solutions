@@ -2,33 +2,58 @@ package model;
 import java.util.ArrayList;
 public class SupplierManager {
 
- private Supplier[] suppliers = new Supplier[100];
-    private int supplierCount = 0;
+    private ArrayList<Supplier> supplierList = new ArrayList<>();
+
     //add supplier function
     public boolean addSupplier(Supplier supplier) {
-        suppliers[supplierCount] = supplier;
-        return true;
+        supplierList.add(supplier);
+  return true;
     }
 
+public Supplier getSupplier(String name) {
+    for (Supplier supplier : supplierList) {
+        if (supplier.getName().equalsIgnoreCase(name)) {
+            return supplier;
+        }
+    }
+    return null;
+}
 
-//updateSupplier()
+public void printSupplierInfo() {
+    if (supplierList.isEmpty()) {
+        System.out.println("The supplier list is currently empty. Please add a supplier first.");
+    } else {
+        for (Supplier supplier : supplierList) {
+            System.out.println("ID: " + supplier.getId() + ", Name: " + supplier.getName() + ", Contact: " + supplier.getContact());
+        }
+    }
+}
 
+public Supplier deleteSupplier(int id) {
+    for (Supplier supplier : supplierList) {
+        if (supplier.getId() == id) {
+            supplierList.remove(supplier);
+            System.out.println("Supplier with ID " + id + " has been deleted.");
+            return supplier; // Return the deleted supplier
+        }
+    }
+    return null;
+}
+    // What if there are two suppliers with the same name? Supplier should be deleted by ID, not name. Ask user to specify ID if multiple suppliers have the same name?
 
-
-//deleteSupplier()
-
-//-------getSupplier() - Show details for one supplier, by inputing the name value (e.g. 'Sony')
-    // This method retrieves a supplier by name, returning null if not found
-    public Supplier getSupplier(String name) {
-        for (int i = 0; i < supplierCount; i++) {
-            if (suppliers[i].getName().equalsIgnoreCase(name)) {
-                return suppliers[i];
+    public Supplier updateSupplier(int id, String newName, String newContact) {
+        for (Supplier supplier : supplierList) {
+            if (supplier.getId() == id) {
+                supplier.setName(newName);
+                supplier.setContact(newContact);
+                System.out.println("Supplier with ID " + id + " has been updated.");
+                return supplier; // Return the updated supplier
             }
         }
-        return null; // Return null if no supplier found
-    }
+        System.out.println("Supplier with ID " + id + " not found.");
+        return null; // Return null if no supplier was found with the given ID
 
-    public void printSupplierInfo() { //Print all suppliers in memory
+   /* public void printSupplierInfo() { //Print all suppliers in memory
         if (supplierCount == 0) {
             System.out.println("The supplier list is currently empty. Please add a supplier first.");
         } else {
@@ -37,9 +62,10 @@ public class SupplierManager {
                 System.out.println("ID: " + supplier.getId() + ", Name: " + supplier.getName() + ", Contact: " + supplier.getContact());
             }
         }
-    }
+    } */  
 //------END OF CLASS------------
 //------END OF CLASS-------------
+}
 }
     
     /*public getSupplier;

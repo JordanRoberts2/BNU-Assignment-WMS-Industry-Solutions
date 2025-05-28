@@ -19,6 +19,7 @@ class Main {
         // Create a Customer
         Customer customer = new Customer(1, "Alice Smith", "555-1234", "123 Main St");
 
+
         // Access and print fields
         System.out.println("Customer ID: " + customer.getCustomerId());
         System.out.println("Name: " + customer.getName());
@@ -33,9 +34,11 @@ class Main {
         Product product1 = new Product("Drill", 101, 1500, 10);
         Product product2 = new Product("Helmet", 102, 500, 5);
         Product product3 = new Product("Safety Glasses", 103, 100, 100);
+        Supplier supplier1 = new Supplier(1, "ABC Supplies", "555-6789");
         inventoryManager.addProduct(product1);
         inventoryManager.addProduct(product2); 
         inventoryManager.addProduct(product3);
+        supplierManager.addSupplier(supplier1);
 
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -47,9 +50,10 @@ class Main {
             System.out.println("3. View Inventory");
             System.out.println("4. Add Supplier");
             System.out.println("5. View Supplier");
-            System.out.println("6. View all Suppliers");// Not implemented
-            //update suplpier
-            //delete supplier 
+            System.out.println("6. View all Suppliers");
+            System.out.println("7. Delete Supplier");
+            System.out.println("8. Update Supplier");// Not implemented
+            System.out.println("9. Generate Purchase Order"); // Not implemented
             //purchase order
             
             System.out.println("7. Generate Finance Report");// Not implemented
@@ -65,6 +69,8 @@ class Main {
                 case 4 -> addSupplierInfo(scanner); // Add a new supplier
                 case 5 -> viewSupplierInfo(scanner); // View one supplier 
                 case 6 -> supplierManager.printSupplierInfo(); // View all suppliers
+                case 7 -> deleteSupplier(scanner); // Delete a supplier
+                case 8 -> updateSupplier(scanner); // Update supplier information
                 // Case 6 Purchase Order
                 }
             
@@ -125,16 +131,22 @@ class Main {
 
     // Method to add a supplier for case 4
     private static void addSupplierInfo(Scanner scanner) {
-         System.out.print("Enter supplier name: ");
+        System.out.print("Enter supplier name: ");
          String name = scanner.nextLine();
-         System.out.print("Enter supplier ID: ");
-         int id = scanner.nextInt();
          System.out.print("Enter supplier contact details: ");
          String contact = scanner.nextLine();
-         scanner.nextLine(); 
+          System.out.print("Enter supplier ID: ");
+         int id = scanner.nextInt();  
+       scanner.nextLine(); // Consume newline
+
 
          Supplier supplier = new Supplier(id, name, contact);
-         System.out.println("The supplier " + supplier.getName() + " has been added to the system.");
+         //System.out.println("The supplier " + supplier.getName() + " has been added to the system.");
+            if (supplierManager.addSupplier(supplier)) {
+                System.out.println("Supplier added: " + supplier.getName());
+            } else {
+                System.out.println("Failed to add supplier. Please try again.");
+            }
     }
 
         // Method to view supplier information for case 5
@@ -144,6 +156,7 @@ class Main {
             // Assuming we have a method in SupplierManager to get supplier by name
             Supplier supplier = supplierManager.getSupplier(name);
             if (supplier != null) {
+                System.out.println("Here are the supplier details you have requested:");
                 System.out.println("Supplier ID: " + supplier.getId());
                 System.out.println("Name: " + supplier.getName());
                 System.out.println("Contact: " + supplier.getContact());
@@ -152,6 +165,34 @@ class Main {
             }
         }
     
+        private static void deleteSupplier(Scanner scanner) {
+            System.out.print("Enter supplier ID to delete: ");
+            int id = scanner.nextInt();
+            if (supplierManager.deleteSupplier(id) != null) {
+                System.out.println("Supplier deleted successfully.");
+            } else {
+                System.out.println("Supplier not found or could not be deleted.");
+            }
+        }
+
+        // Method to update supplier information for case 8
+        private static void updateSupplier(Scanner scanner) {
+            System.out.print("Enter supplier ID to update: ");
+            int id = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            System.out.print("Enter new name: ");
+            String newName = scanner.nextLine();
+            System.out.print("Enter new contact: ");
+            String newContact = scanner.nextLine();
+
+            Supplier updatedSupplier = supplierManager.updateSupplier(id, newName, newContact);
+            if (updatedSupplier != null) {
+                System.out.println("Supplier updated successfully.");
+            } else {
+                System.out.println("Supplier not found or could not be updated.");
+            }
+        }
+
 
    /*  public static void LearnForLoop()   
     {
