@@ -14,11 +14,8 @@ class Main {
     // Main method to run the Warehouse Management System
     public static void main(String[] args) {
 
-      // LearnForLoop();
-
         // Create a Customer
         Customer customer = new Customer(1, "Alice Smith", "555-1234", "123 Main St");
-
 
         // Access and print fields
         System.out.println("Customer ID: " + customer.getCustomerId());
@@ -30,7 +27,7 @@ class Main {
         customer.setAddress("456 Elm St");
         System.out.println("Updated Address: " + customer.getAddress());
 
-        //Create a few relevant products for BNU Industry Solutions Ltd., related to industrial equipment and supplies so the inventory is not empty at the start
+        //Creates a few products for BNU Industry Solutions Ltd., related to industrial equipment and supplies so the inventory is not empty at runtime.
         Product product1 = new Product("Drill", 101, 1500, 10);
         Product product2 = new Product("Helmet", 102, 500, 5);
         Product product3 = new Product("Safety Glasses", 103, 100, 100);
@@ -53,12 +50,13 @@ class Main {
             System.out.println("6. View all Suppliers");
             System.out.println("7. Delete Supplier");
             System.out.println("8. Update Supplier");// Not implemented
-            System.out.println("9. Generate Purchase Order"); // Not implemented
+            System.out.println("9. Create Purchase Order"); // Not implemented - ask Copilot how to do this for
+
             //purchase order
             
-            System.out.println("7. Generate Finance Report");// Not implemented
-            System.out.println("8. Low stock");// Not implemented
-            System.out.println("0. Exit");
+           // System.out.println("7. Generate Finance Report");// Not implemented
+           // System.out.println("8. Low stock");// Not implemented
+           // System.out.println("0. Exit");
             choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -71,7 +69,7 @@ class Main {
                 case 6 -> supplierManager.printSupplierInfo(); // View all suppliers
                 case 7 -> deleteSupplier(scanner); // Delete a supplier
                 case 8 -> updateSupplier(scanner); // Update supplier information
-                // Case 6 Purchase Order
+                case 9 -> createPurchaseOrder(scanner); //Creates a purchase order to a supplier
                 }
             
         } while (choice != 0);
@@ -193,13 +191,9 @@ class Main {
             }
         }
 
+         private static void createPurchaseOrder(Scanner scanner) {
+            System.out.println()
 
-   /*  public static void LearnForLoop()   
-    {
-        for (int i = 1; i <= 10; i++) {
-            System.out.println("Sticker number " + (i + 1));
-        }
-    }*/
-
+         }
 
 }
