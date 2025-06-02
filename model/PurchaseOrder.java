@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class PurchaseOrder {
     
@@ -46,7 +47,6 @@ public class PurchaseOrder {
         private String deliveryStatus;
         private double totalPrice;
         private List<POItem> orderList;
-        
         
     /* - Deleted to add the customer object  part of the 
     private String orderId;
@@ -102,7 +102,7 @@ public class PurchaseOrder {
         this.totalPrice = totalPrice;
     }
     
-    private List<POItem> getItems() {
+    public List<POItem> getItems() {
         return orderList;
     }
 
@@ -143,6 +143,15 @@ private boolean isValidStatus(String status) {
                '}';
     }
 
+        public void setOrderList(List<POItem> items) {
+        this.orderList = items;
+    }
+  
+    public  void receiveDelivery(Scanner scanner) {
+       System.out.println("Please enter the order ID to receive delivery:");
+        
+    }
+    
     /*  Print order details
     public void printOrderDetails() {
         System.out.println("Order ID: " + orderId);
@@ -151,6 +160,3 @@ private boolean isValidStatus(String status) {
         System.out.println("Total Price: " + totalPrice);
     }*/
 }
-
-
-

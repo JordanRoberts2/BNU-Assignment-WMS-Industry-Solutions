@@ -1,13 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+
 public class InventoryManager {
-    private final int MAX_PRODUCTS = 100;
+    /*private final int MAX_PRODUCTS = 100;
     private Product[] products = new Product[MAX_PRODUCTS];
     private int productCount = 0;
 
     public boolean addProduct(Product product) {
         if (productCount < MAX_PRODUCTS) {
             products[productCount++] = product;
+            System.out.println("Product Count: " + p);
             return true;
         }
         return false;
@@ -25,6 +28,27 @@ public class InventoryManager {
         }
         return null;
     }
+*/
+    private ArrayList<Product> productList = new ArrayList<>();
+    private int productCount = 0;
+    //add product function
+    public boolean addProduct(Product product) {
+        productList.add(product);
+        productCount++;
+        return true;
+    }
+
+public Product findProductById(int Id) {
+    for (Product product : productList) {
+        if (product.getId() == Id) {
+            return product;
+        }
+    }
+    return null;
+}
+ public boolean isInventoryEmpty() {
+        return productCount == 0;
+    }
 
     public void restockProduct(int productId, int quantity) {
         Product product = findProductById(productId);
@@ -39,8 +63,7 @@ public class InventoryManager {
         if (productCount == 0) {
             System.out.println("The inventory is currently empty. Please add a product first.");
         } else {
-            for (int i = 0; i < productCount; i++) {
-                Product product = products[i];
+            for (Product product : productList) {
                 System.out.println("ID: " + product.getId() + ", Name: " + product.getName() + ", Stock: " + product.getStockLevel() + ", Price: " + product.getPrice());
             }
         }

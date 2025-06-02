@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import model.Product;
+import model.PurchaseOrder;
+import model.PurchaseOrderManager;
 import model.Supplier;
 import model.SupplierManager;
 import model.InventoryManager;
@@ -9,6 +13,7 @@ import model.Customer;
 class Main {
     private static InventoryManager inventoryManager = new InventoryManager();
     private static SupplierManager supplierManager = new SupplierManager();
+    private static PurchaseOrderManager purchaseOrderManager = new PurchaseOrderManager();
 
 
     // Main method to run the Warehouse Management System
@@ -49,8 +54,9 @@ class Main {
             System.out.println("5. View Supplier");
             System.out.println("6. View all Suppliers");
             System.out.println("7. Delete Supplier");
-            System.out.println("8. Update Supplier");// Not implemented
-            System.out.println("9. Create Purchase Order"); // Not implemented - ask Copilot how to do this for
+            System.out.println("8. Update Supplier");
+            System.out.println("9. Create Purchase Order"); 
+            System.out.println("10. Receive Delivery"); 
 
             //purchase order
             
@@ -70,6 +76,8 @@ class Main {
                 case 7 -> deleteSupplier(scanner); // Delete a supplier
                 case 8 -> updateSupplier(scanner); // Update supplier information
                 case 9 -> createPurchaseOrder(scanner); //Creates a purchase order to a supplier
+                case 10 -> receiveDelivery(scanner); // Receive delivery from a supplier (not implemented)
+                case 0 -> System.out.println("Exiting the system. Goodbye!");
                 }
             
         } while (choice != 0);
@@ -100,10 +108,10 @@ class Main {
     
     // Method to restock a product for case 2
     private static void restockProduct(Scanner scanner) {
-        if (inventoryManager.isInventoryEmpty()) {
-            System.out.println("Sorry, there are no products in the system. Please add a product first.");
-            return;
-        }
+       // if (inventoryManager.isInventoryEmpty()) {
+      //      System.out.println("Sorry, there are no products in the system. Please add a product first.");
+       //     return;
+      //  }
 
         System.out.println("Current Inventory:");
         inventoryManager.printInventory();
@@ -191,9 +199,50 @@ class Main {
             }
         }
 
-         private static void createPurchaseOrder(Scanner scanner) {
-            System.out.println()
+     
+private static void createPurchaseOrder(Scanner scanner) {
+    System.out.print("Enter Supplier ID: ");
+    int supplierId = scanner.nextInt();
+    scanner.nextLine();
 
-         }
+    List<PurchaseOrder.POItem> items = new ArrayList<>();
+    String addMore;
+    do {
+        System.out.print("Enter Product ID: ");
+        int productId = scanner.nextInt();
+        System.out.print("Enter Quantity: ");
+        int quantity = scanner.nextInt();
+        System.out.print("Enter Unit Cost: ");
+        double unitCost = scanner.nextDouble();
+        scanner.nextLine();
 
+        items.add(new PurchaseOrder.POItem(productId, quantity, unitCost));
+
+        System.out.print("Add another item? (yes/no): ");
+        addMore = scanner.nextLine();
+    } while (addMore.equalsIgnoreCase("yes"));
+
+    // Case 9 - Create a new PurchaseOrder object and set its properties 
+    PurchaseOrder po = new PurchaseOrder();
+    po.setOrderId(/* generate or prompt for order ID */ 1); // You may want to auto-increment or prompt
+    po.setSupplierId(supplierId);
+    po.setOrderDate(java.time.LocalDateTime.now());
+    po.setDeliveryStatus("Pending");
+    po.setTotalPrice(items.stream().mapToDouble(i -> i.getQuantity() * i.getUnitCost()).sum());
+    po.setOrderList(items); 
+    // po.setOrderList(items); // You may need to add this setter in PurchaseOrder
+
+    purchaseOrderManager.addPurchaseOrder(po); 
+    System.out.println("Purchase order created:\n" + po);
+}
+
+    public static void receiveDelivery(Scanner scanner) {  
+        System.out.println("Receiving delivery from supplier (not implemented yet).");
+        System.out.println("Enter Order ID: ");
+        int orderId = scanner.nextInt();
+        scanner.nextLine();
+       
+        purchaseOrderManager.receiveDelivery(orderId); 
+
+}
 }
