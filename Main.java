@@ -9,6 +9,7 @@ import model.Supplier;
 import model.SupplierManager;
 import model.InventoryManager;
 import model.Customer;
+import model.CustomerOrder;
 
 class Main {
     private static InventoryManager inventoryManager = new InventoryManager();
@@ -57,6 +58,7 @@ class Main {
             System.out.println("8. Update Supplier");
             System.out.println("9. Create Purchase Order"); 
             System.out.println("10. Receive Delivery"); 
+            System.out.println("11. Create a customer order");
 
             //purchase order
             
@@ -77,6 +79,9 @@ class Main {
                 case 8 -> updateSupplier(scanner); // Update supplier information
                 case 9 -> createPurchaseOrder(scanner); //Creates a purchase order to a supplier
                 case 10 -> receiveDelivery(scanner); // Receive delivery from a supplier (not implemented)
+                case 11 -> createCustomerOrder(scanner);
+                case 12 -> viewAllCustomerOrders(scanner); // view all customer orders in memory
+                case 13 -> viewAllPurchaseOrders(scanner); // View details of a specific customer order (not implemented)
                 case 0 -> System.out.println("Exiting the system. Goodbye!");
                 }
             
@@ -245,4 +250,65 @@ private static void createPurchaseOrder(Scanner scanner) {
         purchaseOrderManager.receiveDelivery(orderId); 
 
 }
+
+private static void createCustomerOrder(Scanner scanner) {
+    System.out.println("Creating a customer order:");
+    List<CustomerOrder.COItem> items = new ArrayList<>();
+    String addMore;
+    do {
+        System.out.print("Enter Product ID: ");
+        int productId = scanner.nextInt();
+        System.out.print("Enter Quantity: ");
+        int quantity = scanner.nextInt();
+
+        items.add(new CustomerOrder.COItem(productId, quantity, 0));
+
+        System.out.print("Add another item? (yes/no): ");
+        scanner.nextLine(); // Consume newline
+        addMore = scanner.nextLine();
+    } while (addMore.equalsIgnoreCase("yes"));
+
+    CustomerOrder po = new CustomerOrder();
+    po.setOrderId(/* generate or prompt for order ID */ 1); // You may want to auto-increment or prompt
+    po.setOrderDate(java.time.LocalDateTime.now());
+    po.setOrderList(items);
+    po.setTotalPrice(items.stream().mapToDouble(i -> i.getQuantity() * i.getUnitPrice()).sum());
+    po.setStatus("Pending"); 
+    // You can implement this method to create a customer order
+    // For now, just print a message
+    System.out.println("Customer order created successfully.");
+}
+
+// Method to view all customer orders
+private static void viewAllCustomerOrders(Scanner scanner) {
+    System.out.println("Viewing all customer orders (not implemented yet).");
+    // You can implement this method to view all customer orders
+    // For now, just print a message
+
+    List<CustomerOrder> customerOrders = purchaseOrderManager.viewAllCustomerOrders();
+    if (customerOrders.isEmpty()) {
+        System.out.println("No customer orders found.");
+    } else {
+        System.out.println("Customer Orders:");
+        for (CustomerOrder order : customerOrders) {
+            System.out.println(order);
+        }
+    }
+
+    private static void viewAllPurchaseOrders(Scanner scanner) {
+        System.out.println("Viewing all purchase orders (not implemented yet).");
+        // You can implement this method to view all purchase orders
+        // For now, just print a message
+
+        List<PurchaseOrder> purchaseOrders = purchaseOrderManager.getAllPurchaseOrders();
+        if (purchaseOrders.isEmpty()) {
+            System.out.println("No purchase orders found.");
+        } else {
+            System.out.println("Purchase Orders:");
+            for (PurchaseOrder order : purchaseOrders) {
+                System.out.println(order);
+            }
+        }
+    }
+
 }
