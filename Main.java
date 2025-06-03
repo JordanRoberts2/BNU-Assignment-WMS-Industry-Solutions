@@ -10,11 +10,13 @@ import model.SupplierManager;
 import model.InventoryManager;
 import model.Customer;
 import model.CustomerOrder;
+import model.CustomerOrderManager;
 
 class Main {
     private static InventoryManager inventoryManager = new InventoryManager();
     private static SupplierManager supplierManager = new SupplierManager();
     private static PurchaseOrderManager purchaseOrderManager = new PurchaseOrderManager();
+    private static CustomerOrderManager customerOrderManager = new CustomerOrderManager();
 
 
     // Main method to run the Warehouse Management System
@@ -59,6 +61,8 @@ class Main {
             System.out.println("9. Create Purchase Order"); 
             System.out.println("10. Receive Delivery"); 
             System.out.println("11. Create a customer order");
+            System.out.println("12. View all customer orders");
+            System.out.println("13. View all purchase orders"); // Not implemented
 
             //purchase order
             
@@ -251,7 +255,9 @@ private static void createPurchaseOrder(Scanner scanner) {
 
 }
 
+// Method to create a customer order for case 11
 private static void createCustomerOrder(Scanner scanner) {
+        
     System.out.println("Creating a customer order:");
     List<CustomerOrder.COItem> items = new ArrayList<>();
     String addMore;
@@ -267,25 +273,23 @@ private static void createCustomerOrder(Scanner scanner) {
         scanner.nextLine(); // Consume newline
         addMore = scanner.nextLine();
     } while (addMore.equalsIgnoreCase("yes"));
-
+    
     CustomerOrder po = new CustomerOrder();
     po.setOrderId(/* generate or prompt for order ID */ 1); // You may want to auto-increment or prompt
     po.setOrderDate(java.time.LocalDateTime.now());
     po.setOrderList(items);
     po.setTotalPrice(items.stream().mapToDouble(i -> i.getQuantity() * i.getUnitPrice()).sum());
     po.setStatus("Pending"); 
-    // You can implement this method to create a customer order
-    // For now, just print a message
+    
+    customerOrderManager.addCustomerOrder(po);
+
     System.out.println("Customer order created successfully.");
 }
 
+
 // Method to view all customer orders
 private static void viewAllCustomerOrders(Scanner scanner) {
-    System.out.println("Viewing all customer orders (not implemented yet).");
-    // You can implement this method to view all customer orders
-    // For now, just print a message
-
-    List<CustomerOrder> customerOrders = purchaseOrderManager.viewAllCustomerOrders();
+    List<CustomerOrder> customerOrders = customerOrderManager.getAllCustomerOrders();
     if (customerOrders.isEmpty()) {
         System.out.println("No customer orders found.");
     } else {
@@ -294,7 +298,9 @@ private static void viewAllCustomerOrders(Scanner scanner) {
             System.out.println(order);
         }
     }
+}
 
+    // Method to view all purchase orders
     private static void viewAllPurchaseOrders(Scanner scanner) {
         System.out.println("Viewing all purchase orders (not implemented yet).");
         // You can implement this method to view all purchase orders
