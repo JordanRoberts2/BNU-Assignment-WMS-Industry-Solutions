@@ -36,8 +36,8 @@ public class PurchaseOrderManager {
         for (PurchaseOrder.POItem item : foundOrder.getItems()) {
             // Assuming you have an InventoryManager instance to update the stock
             System.out.println("Restocking product ID: " + item.getProductId() + " with quantity: " + item.getQuantity());
-            InventoryManager inventoryManager = new InventoryManager();
-            inventoryManager.restockProduct(item.getProductId(), item.getQuantity());
+
+            InventoryManager.inventoryManager.restockProduct(item.getProductId(), item.getQuantity());
             
         }
     }

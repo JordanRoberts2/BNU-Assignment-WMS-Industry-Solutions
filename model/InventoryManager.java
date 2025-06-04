@@ -29,7 +29,9 @@ public class InventoryManager {
         return null;
     }
 */
+    public static InventoryManager inventoryManager = new InventoryManager();
     private ArrayList<Product> productList = new ArrayList<>();
+    
     private int productCount = 0;
     //add product function
     public boolean addProduct(Product product) {
@@ -54,6 +56,15 @@ public Product findProductById(int Id) {
         Product product = findProductById(productId);
         if (product != null) {
             product.addStock(quantity);
+        } else {
+            System.out.println("Product with ID " + productId + " not found.");
+        }
+    }
+
+     public void decreaseProduct (int productId , int quantity) {
+        Product product = findProductById(productId);
+        if (product != null) {
+            product.removeStock(quantity);
         } else {
             System.out.println("Product with ID " + productId + " not found.");
         }

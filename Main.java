@@ -13,7 +13,7 @@ import model.CustomerOrder;
 import model.CustomerOrderManager;
 
 class Main {
-    private static InventoryManager inventoryManager = new InventoryManager();
+    
     private static SupplierManager supplierManager = new SupplierManager();
     private static PurchaseOrderManager purchaseOrderManager = new PurchaseOrderManager();
     private static CustomerOrderManager customerOrderManager = new CustomerOrderManager();
@@ -40,9 +40,9 @@ class Main {
         Product product2 = new Product("Helmet", 102, 500, 5);
         Product product3 = new Product("Safety Glasses", 103, 100, 100);
         Supplier supplier1 = new Supplier(1, "ABC Supplies", "555-6789");
-        inventoryManager.addProduct(product1);
-        inventoryManager.addProduct(product2); 
-        inventoryManager.addProduct(product3);
+        InventoryManager.inventoryManager.addProduct(product1);
+        InventoryManager.inventoryManager.addProduct(product2); 
+        InventoryManager.inventoryManager.addProduct(product3);
         supplierManager.addSupplier(supplier1);
 
         Scanner scanner = new Scanner(System.in);
@@ -62,7 +62,8 @@ class Main {
             System.out.println("10. Receive Delivery"); 
             System.out.println("11. Create a customer order");
             System.out.println("12. View all customer orders");
-            System.out.println("13. View all purchase orders"); // Not implemented
+            System.out.println("13. View all purchase orders");
+            System.out.println("14. Send customer order");
 
             //purchase order
             
@@ -82,10 +83,11 @@ class Main {
                 case 7 -> deleteSupplier(scanner); // Delete a supplier
                 case 8 -> updateSupplier(scanner); // Update supplier information
                 case 9 -> createPurchaseOrder(scanner); //Creates a purchase order to a supplier
-                case 10 -> receiveDelivery(scanner); // Receive delivery from a supplier (not implemented)
+                case 10 -> receiveDelivery(scanner); // Receive delivery from a supplier
                 case 11 -> createCustomerOrder(scanner);
                 case 12 -> viewAllCustomerOrders(scanner); // view all customer orders in memory
-                case 13 -> viewAllPurchaseOrders(scanner); // View details of a specific customer order (not implemented)
+                case 13 -> viewAllPurchaseOrders(scanner); // View details of a specific customer order
+                case 14 -> sendCustomerOrder(scanner); // Send customer order
                 case 0 -> System.out.println("Exiting the system. Goodbye!");
                 }
             
@@ -108,7 +110,7 @@ class Main {
         scanner.nextLine(); // Consume newline
 
         Product product = new Product(name, id, price, stockLevel);
-        if (inventoryManager.addProduct(product)) {
+        if (InventoryManager.inventoryManager.addProduct(product)) {
             System.out.println("Product added: " + product.getName());
         } else {
             System.out.println("Failed to add product. Inventory might be full. Please try again.");
@@ -123,24 +125,24 @@ class Main {
       //  }
 
         System.out.println("Current Inventory:");
-        inventoryManager.printInventory();
+        InventoryManager.inventoryManager.printInventory();
         
         System.out.print("Enter the ID of the product you want to restock: ");
         int productId = scanner.nextInt();
         System.out.print("Enter the quantity to add: ");
         int quantity = scanner.nextInt();
 
-        inventoryManager.restockProduct(productId, quantity);
+        InventoryManager.inventoryManager.restockProduct(productId, quantity);
     }
 
      // Method to print the inventory for case 3
     private static void viewInventory(Scanner scanner) {
-        if (inventoryManager.isInventoryEmpty()) {
+        if (InventoryManager.inventoryManager.isInventoryEmpty()) {
             System.out.println("Sorry, there are no products in the system. Please add a product first.");
             return;
         }
         System.out.println("Current Inventory:");
-        inventoryManager.printInventory();
+        InventoryManager.inventoryManager.printInventory();
       
     } 
 
@@ -287,7 +289,7 @@ private static void createCustomerOrder(Scanner scanner) {
 }
 
 
-// Method to view all customer orders
+// Method to view all customer orders for case 12
 private static void viewAllCustomerOrders(Scanner scanner) {
     List<CustomerOrder> customerOrders = customerOrderManager.getAllCustomerOrders();
     if (customerOrders.isEmpty()) {
@@ -300,11 +302,10 @@ private static void viewAllCustomerOrders(Scanner scanner) {
     }
 }
 
-    // Method to view all purchase orders
+    // Method to view all purchase orders for case 13
     private static void viewAllPurchaseOrders(Scanner scanner) {
         System.out.println("Viewing all purchase orders (not implemented yet).");
-        // You can implement this method to view all purchase orders
-        // For now, just print a message
+
 
         List<PurchaseOrder> purchaseOrders = purchaseOrderManager.getAllPurchaseOrders();
         if (purchaseOrders.isEmpty()) {
@@ -317,4 +318,14 @@ private static void viewAllCustomerOrders(Scanner scanner) {
         }
     }
 
+
+    // Method to send a customer order for case 14
+    private static void sendCustomerOrder(Scanner scanner) {
+        System.out.println("Sending customer order");
+        System.out.print("Enter Customer Order ID to send: ");
+        int orderId = scanner.nextInt();
+        scanner.nextLine();
+
+        customerOrderManager.processCustomerOrder(orderId);
+    }
 }

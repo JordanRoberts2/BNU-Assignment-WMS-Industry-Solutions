@@ -99,5 +99,17 @@ public class CustomerOrder {
                Objects.equals(status, "Cancelled");
     }
 
+    @Override
+    public String toString() {
+        return "CustomerOrder{" +
+               "orderId='" + orderId + '\'' +
+               ", orderDate=" + orderDate +
+               ", orderList=" + orderList +
+               ", status='" + status + '\'' +
+               ", totalRevenue=" + String.format("%.2f", totalRevenue) +
+               '}';
+    }
+
+    //Process customer order
     
 }

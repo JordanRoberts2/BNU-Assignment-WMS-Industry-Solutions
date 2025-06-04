@@ -25,6 +25,7 @@ public void printSupplierInfo() {
     } else {
         for (Supplier supplier : supplierList) {
             System.out.println("ID: " + supplier.getId() + ", Name: " + supplier.getName() + ", Contact: " + supplier.getContact());
+
         }
     }
 }
