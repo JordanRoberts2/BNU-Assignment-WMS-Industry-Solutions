@@ -1,4 +1,4 @@
-package model;
+package src.model;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -111,5 +111,5 @@ public class CustomerOrder {
     }
 
     //Process customer order
-    
+
 }

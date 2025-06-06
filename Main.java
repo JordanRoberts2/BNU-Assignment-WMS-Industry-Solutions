@@ -2,15 +2,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import model.Product;
-import model.PurchaseOrder;
-import model.PurchaseOrderManager;
-import model.Supplier;
-import model.SupplierManager;
-import model.InventoryManager;
-import model.Customer;
-import model.CustomerOrder;
-import model.CustomerOrderManager;
+import src.model.Customer;
+import src.model.CustomerOrder;
+import src.model.CustomerOrderManager;
+import src.model.InventoryManager;
+import src.model.Product;
+import src.model.PurchaseOrder;
+import src.model.PurchaseOrderManager;
+import src.model.Supplier;
+import src.model.SupplierManager;
 
 class Main {
     

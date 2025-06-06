@@ -1,4 +1,4 @@
-package model;
+package src.model;
 
 // Customer now extends Person to show inheritance
 public class Customer extends Person { 
