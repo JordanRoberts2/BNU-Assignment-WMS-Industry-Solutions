@@ -1,3 +1,4 @@
+package src.model;
 import src.model;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -31,7 +32,7 @@ public class ProductTest {
 
     @Test
     public void testAddStock() {
-        Prodcut product = new Product("1", "Laptop", "High-end gaming laptop", 1500.00, 10);
+        Product product = new Product("1", "Laptop", "High-end gaming laptop", 1500.00, 10);
         product.addStock(5);
         assertEquals(15, product.getStock());
     }

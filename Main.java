@@ -64,12 +64,7 @@ class Main {
             System.out.println("12. View all customer orders");
             System.out.println("13. View all purchase orders");
             System.out.println("14. Send customer order");
-
-            //purchase order
             
-           // System.out.println("7. Generate Finance Report");// Not implemented
-           // System.out.println("8. Low stock");// Not implemented
-           // System.out.println("0. Exit");
             choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -84,7 +79,7 @@ class Main {
                 case 8 -> updateSupplier(scanner); // Update supplier information
                 case 9 -> createPurchaseOrder(scanner); //Creates a purchase order to a supplier
                 case 10 -> receiveDelivery(scanner); // Receive delivery from a supplier
-                case 11 -> createCustomerOrder(scanner);
+                case 11 -> createCustomerOrder(scanner); // Create a customer order
                 case 12 -> viewAllCustomerOrders(scanner); // view all customer orders in memory
                 case 13 -> viewAllPurchaseOrders(scanner); // View details of a specific customer order
                 case 14 -> sendCustomerOrder(scanner); // Send customer order
@@ -328,4 +323,7 @@ private static void viewAllCustomerOrders(Scanner scanner) {
 
         customerOrderManager.processCustomerOrder(orderId);
     }
+    
+    //Low stock alert method
+    
 }
