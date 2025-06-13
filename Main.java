@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,24 +23,12 @@ class Main {
     // Main method to run the Warehouse Management System
     public static void main(String[] args) {
 
-        // Create a Customer
-        Customer customer = new Customer(1, "Alice Smith", "555-1234", "123 Main St");
-
-        // Access and print fields
-        System.out.println("Customer ID: " + customer.getCustomerId());
-        System.out.println("Name: " + customer.getName());
-        System.out.println("Contact: " + customer.getContact());
-        System.out.println("Address: " + customer.getAddress());
-
-        // Modify and print again
-        customer.setAddress("456 Elm St");
-        System.out.println("Updated Address: " + customer.getAddress());
-
+       
         //Creates a few products for BNU Industry Solutions Ltd., related to industrial equipment and supplies so the inventory is not empty at runtime.
-        Product product1 = new Product("Drill", 101, 1500, 10);
-        Product product2 = new Product("Helmet", 102, 500, 5);
-        Product product3 = new Product("Safety Glasses", 103, 100, 100);
-        Supplier supplier1 = new Supplier(1, "ABC Supplies", "555-6789");
+        Product product1 = new Product("Drill", 1500, 10);
+        Product product2 = new Product("Helmet", 500, 5);
+        Product product3 = new Product("Safety Glasses", 100, 100);
+        Supplier supplier1 = new Supplier("ABC Supplies", "555-6789");
         InventoryManager.inventoryManager.addProduct(product1);
         InventoryManager.inventoryManager.addProduct(product2); 
         InventoryManager.inventoryManager.addProduct(product3);
@@ -96,15 +85,13 @@ class Main {
     private static void addProduct(Scanner scanner) {
         System.out.print("Enter product name: ");
         String name = scanner.nextLine();
-        System.out.print("Enter product ID: ");
-        int id = scanner.nextInt();
         System.out.print("Enter product price: ");
         int price = scanner.nextInt();
         System.out.print("Enter stock level: ");
         int stockLevel = scanner.nextInt();
         scanner.nextLine(); // Consume newline
 
-        Product product = new Product(name, id, price, stockLevel);
+        Product product = new Product(name, price, stockLevel);
         if (InventoryManager.inventoryManager.addProduct(product)) {
             System.out.println("Product added: " + product.getName());
         } else {
@@ -138,21 +125,18 @@ class Main {
         }
         System.out.println("Current Inventory:");
         InventoryManager.inventoryManager.printInventory();
-      
     } 
 
     // Method to add a supplier for case 4
     private static void addSupplierInfo(Scanner scanner) {
         System.out.print("Enter supplier name: ");
-         String name = scanner.nextLine();
-         System.out.print("Enter supplier contact details: ");
-         String contact = scanner.nextLine();
-          System.out.print("Enter supplier ID: ");
-         int id = scanner.nextInt();  
-       scanner.nextLine(); // Consume newline
+        String name = scanner.nextLine();
+        System.out.print("Enter supplier contact details: ");
+        String contact = scanner.nextLine();
+        scanner.nextLine(); // Consume newline
 
 
-         Supplier supplier = new Supplier(id, name, contact);
+         Supplier supplier = new Supplier(name, contact);
          //System.out.println("The supplier " + supplier.getName() + " has been added to the system.");
             if (supplierManager.addSupplier(supplier)) {
                 System.out.println("Supplier added: " + supplier.getName());
@@ -205,7 +189,7 @@ class Main {
             }
         }
 
-     
+
 private static void createPurchaseOrder(Scanner scanner) {
     System.out.print("Enter Supplier ID: ");
     int supplierId = scanner.nextInt();
@@ -228,16 +212,7 @@ private static void createPurchaseOrder(Scanner scanner) {
         addMore = scanner.nextLine();
     } while (addMore.equalsIgnoreCase("yes"));
 
-    // Case 9 - Create a new PurchaseOrder object and set its properties 
-    PurchaseOrder po = new PurchaseOrder();
-    po.setOrderId(/* generate or prompt for order ID */ 1); // You may want to auto-increment or prompt
-    po.setSupplierId(supplierId);
-    po.setOrderDate(java.time.LocalDateTime.now());
-    po.setDeliveryStatus("Pending");
-    po.setTotalPrice(items.stream().mapToDouble(i -> i.getQuantity() * i.getUnitCost()).sum());
-    po.setOrderList(items); 
-    // po.setOrderList(items); // You may need to add this setter in PurchaseOrder
-
+    PurchaseOrder po = new PurchaseOrder(supplierId, LocalDateTime.now(), "Pending", items.stream().mapToDouble(i -> i.getQuantity() * i.getUnitCost()).sum(),items);
     purchaseOrderManager.addPurchaseOrder(po); 
     System.out.println("Purchase order created:\n" + po);
 }
@@ -271,18 +246,11 @@ private static void createCustomerOrder(Scanner scanner) {
         addMore = scanner.nextLine();
     } while (addMore.equalsIgnoreCase("yes"));
     
-    CustomerOrder po = new CustomerOrder();
-    po.setOrderId(/* generate or prompt for order ID */ 1); // You may want to auto-increment or prompt
-    po.setOrderDate(java.time.LocalDateTime.now());
-    po.setOrderList(items);
-    po.setTotalPrice(items.stream().mapToDouble(i -> i.getQuantity() * i.getUnitPrice()).sum());
-    po.setStatus("Pending"); 
-    
-    customerOrderManager.addCustomerOrder(po);
+    CustomerOrder co = new CustomerOrder(LocalDateTime.now(), items, items.stream().mapToDouble(i -> i.getQuantity() * i.getUnitPrice()).sum(), "Pending");
+    customerOrderManager.addCustomerOrder(co);
 
     System.out.println("Customer order created successfully.");
 }
-
 
 // Method to view all customer orders for case 12
 private static void viewAllCustomerOrders(Scanner scanner) {

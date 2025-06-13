@@ -41,6 +41,8 @@ public class PurchaseOrder {
                    '}';
         }
     }
+    // Purchase Order attributes
+        private static int nextPurchaseOrderId = 1;    
         private int orderId;
         private int supplierId;
         private LocalDateTime orderDate;
@@ -48,19 +50,14 @@ public class PurchaseOrder {
         private double totalPrice;
         private List<POItem> orderList;
         
-    /* - Deleted to add the customer object  part of the 
-    private String orderId;
-    private String items;
-    private String customerId;
-    private double totalPrice;
-    //product reference
-    // customer reference (inheritance?)
-
-    public Order(String orderId, String items, String customerId, double totalPrice) {
-        this.orderId = orderId;
-        this.items = items;
-        this.customerId = customerId;
-        this.totalPrice = totalPrice;*/
+        public PurchaseOrder(int supplierId, LocalDateTime orderDate, String deliveryStatus, double totalPrice, List<POItem> orderList) { // Removed orderId from constructor parameters
+        this.orderId = nextPurchaseOrderId++; // Auto-increment and assign ID
+        this.supplierId = supplierId;
+        this.orderDate = orderDate;
+        this.deliveryStatus = deliveryStatus;
+        this.totalPrice = totalPrice;
+        this.orderList = orderList;
+    }
     
      // Getters and setters
      public int getOrderId() {

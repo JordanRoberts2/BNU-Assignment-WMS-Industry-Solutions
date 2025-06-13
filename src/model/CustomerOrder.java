@@ -4,19 +4,20 @@ import java.util.List;
 import java.util.Objects;
 
 public class CustomerOrder {
+    private static int nextOrderId = 1;
     private int orderId;
     private LocalDateTime orderDate;
     private List<COItem> orderList;
     private double totalRevenue;
     private String status;
 
-    /*public CustomerOrder(int orderId, LocalDateTime orderDate, List<COItem> orderList, double totalRevenue, String status) {
-        this.orderId = orderId;
+public CustomerOrder(LocalDateTime orderDate, List<COItem> orderList, double totalRevenue, String status) {
+        this.orderId = nextOrderId++;
         this.orderDate = orderDate;
         this.orderList = orderList;
-        this.totalRevenue = calculateTotalRevenue();
-        this.status = status; */
-    
+        this.totalRevenue = totalRevenue;
+        this.status = status;
+    }
     
     public static class COItem {
         private int productId;
@@ -45,10 +46,10 @@ public class CustomerOrder {
         @Override 
         public String toString() {
             return "COItem{" +
-                   "productId='" + productId + '\'' +
-                   ", quantity=" + quantity +
-                   ", unitPrice=" + String.format("%.2f", unitPrice) +
-                   '}';
+            "productId='" + productId + '\'' +
+            ", quantity=" + quantity +
+            ", unitPrice=" + String.format("%.2f", unitPrice) +
+            '}';
         }
     }
 
@@ -76,13 +77,7 @@ public class CustomerOrder {
     public void setTotalPrice(double totalRevenue) {
         this.totalRevenue = totalRevenue;
     }
-    
-    /*private double calculateTotalRevenue() {
-        return orderList.stream()
-                    .mapToDouble(item -> item.getQuantity() * item.getUnitPrice())
-                    .sum();
-    }*/
- 
+
     //CO Item
 
     public void setStatus(String newStatus) {
@@ -95,19 +90,19 @@ public class CustomerOrder {
 
     private boolean isValidStatus(String status) {
         return Objects.equals(status, "Pending") ||
-               Objects.equals(status, "Delivered") ||
-               Objects.equals(status, "Cancelled");
+        Objects.equals(status, "Delivered") ||
+        Objects.equals(status, "Cancelled");
     }
 
     @Override
     public String toString() {
         return "CustomerOrder{" +
-               "orderId='" + orderId + '\'' +
-               ", orderDate=" + orderDate +
-               ", orderList=" + orderList +
-               ", status='" + status + '\'' +
-               ", totalRevenue=" + String.format("%.2f", totalRevenue) +
-               '}';
+        "orderId='" + orderId + '\'' +
+        ", orderDate=" + orderDate +
+        ", orderList=" + orderList +
+        ", status='" + status + '\'' +
+        ", totalRevenue=" + String.format("%.2f", totalRevenue) +
+        '}';
     }
 
     //Process customer order

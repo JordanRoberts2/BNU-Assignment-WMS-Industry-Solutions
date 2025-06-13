@@ -7,11 +7,11 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import java.util.List;
 public class PurchaseOrderManagerTest {
- 
+
     static class MockInventoryManager extends InventoryManager {
         private int lastProductId = -1;
         private int lastQuantity = -1;
- 
+
         @Override
         public void restockProduct(int productId, int quantity) {
             this.lastProductId = productId;
@@ -36,7 +36,7 @@ public class PurchaseOrderManagerTest {
     @Before public void setUp() {
         mockInventory = new MockInventory();
         purchaseOrderManager = new PurchaseOrderManager();
-       
+
         purchaseOrder = new PurchaseOrder();
         purchaseOrder.setOrderId(1);
         purchaseOrder.setSupplierId(101);
@@ -49,15 +49,15 @@ public class PurchaseOrderManagerTest {
         Assertions.assertEquals(1, purchaseOrderManager.getAllPurchaseOrders().size());
     }
     
-   @Test public void testReceiveDelivery() {
+@Test public void testReceiveDelivery() {
         purchaseOrderManager.receiveDelivery(1);
         Assertions.assertEquals("Delivered", purchaseOrder.getDeliveryStatus());
     }
 
     @Test public void testReceiveDeliveryInvalidId() {
         purchaseOrderManager.receiveDelivery(999);
-        // Should print "Purchase Order 999 not found."
-   }
+        // Should print "Purchase Order 999 not found." 
+        }
 
    @Test public void testRestockProduct() {
         purchaseOrderManager.receiveDelivery(1);

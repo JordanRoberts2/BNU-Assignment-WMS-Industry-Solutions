@@ -1,14 +1,16 @@
 package src.model;
 
 public class Product {
+    private static int nextProductId = 1;
+
     private int id;
     private String name;
     private int price;
     private int stockLevel;
 
-    public Product(String name, int id, int price, int stockLevel) {
+    public Product(String name, int price, int stockLevel) {
         this.name = name;
-        this.id = id;
+        this.id = nextProductId++;
         this.price = price;
         this.stockLevel = stockLevel;
     }
