@@ -1,4 +1,4 @@
-package src.model;
+package src.test.java.model;
 
 public class InventoryManagerTest {
   private InventoryManager inventoryManager;

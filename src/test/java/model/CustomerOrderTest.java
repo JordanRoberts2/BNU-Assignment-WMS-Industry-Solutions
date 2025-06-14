@@ -1,4 +1,4 @@
-package src.model;
+package src.test.java.model;
 
 public class CustomerOrderTest {
     

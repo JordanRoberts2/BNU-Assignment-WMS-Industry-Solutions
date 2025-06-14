@@ -19,6 +19,7 @@ public Supplier getSupplier(String name) {
     return null;
 }
 
+
 public void printSupplierInfo() {
     if (supplierList.isEmpty()) {
         System.out.println("The supplier list is currently empty. Please add a supplier first.");

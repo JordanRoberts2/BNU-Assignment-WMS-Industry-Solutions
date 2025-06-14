@@ -23,12 +23,12 @@ class Main {
     // Main method to run the Warehouse Management System
     public static void main(String[] args) {
 
-       
-        //Creates a few products for BNU Industry Solutions Ltd., related to industrial equipment and supplies so the inventory is not empty at runtime.
+
+        //Creates a few products for BNU Industry Solutions Ltd.
         Product product1 = new Product("Drill", 1500, 10);
         Product product2 = new Product("Helmet", 500, 5);
         Product product3 = new Product("Safety Glasses", 100, 100);
-        Supplier supplier1 = new Supplier("ABC Supplies", "555-6789");
+        Supplier supplier1 = new Supplier("ABC Supplies", "123-4567");
         InventoryManager.inventoryManager.addProduct(product1);
         InventoryManager.inventoryManager.addProduct(product2); 
         InventoryManager.inventoryManager.addProduct(product3);
@@ -101,11 +101,6 @@ class Main {
     
     // Method to restock a product for case 2
     private static void restockProduct(Scanner scanner) {
-       // if (inventoryManager.isInventoryEmpty()) {
-      //      System.out.println("Sorry, there are no products in the system. Please add a product first.");
-       //     return;
-      //  }
-
         System.out.println("Current Inventory:");
         InventoryManager.inventoryManager.printInventory();
         
@@ -135,9 +130,7 @@ class Main {
         String contact = scanner.nextLine();
         scanner.nextLine(); // Consume newline
 
-
-         Supplier supplier = new Supplier(name, contact);
-         //System.out.println("The supplier " + supplier.getName() + " has been added to the system.");
+        Supplier supplier = new Supplier(name, contact);
             if (supplierManager.addSupplier(supplier)) {
                 System.out.println("Supplier added: " + supplier.getName());
             } else {
@@ -149,7 +142,6 @@ class Main {
         private static void viewSupplierInfo(Scanner scanner) {
             System.out.println("Enter supplier name to view details: ");
             String name = scanner.nextLine();
-            // Assuming we have a method in SupplierManager to get supplier by name
             Supplier supplier = supplierManager.getSupplier(name);
             if (supplier != null) {
                 System.out.println("Here are the supplier details you have requested:");
@@ -160,7 +152,11 @@ class Main {
                 System.out.println("Supplier not found.");
             }
         }
-    
+
+//
+// Method to view all suppliers for case 6 is in SupplierManager class
+//
+        // Method to delete a supplier for case 7
         private static void deleteSupplier(Scanner scanner) {
             System.out.print("Enter supplier ID to delete: ");
             int id = scanner.nextInt();
@@ -189,7 +185,7 @@ class Main {
             }
         }
 
-
+        // Method to create a purchase order for case 9
 private static void createPurchaseOrder(Scanner scanner) {
     System.out.print("Enter Supplier ID: ");
     int supplierId = scanner.nextInt();
@@ -217,12 +213,13 @@ private static void createPurchaseOrder(Scanner scanner) {
     System.out.println("Purchase order created:\n" + po);
 }
 
+// Method to receive delivery from a supplier for case 10
     public static void receiveDelivery(Scanner scanner) {  
         System.out.println("Receiving delivery from supplier (not implemented yet).");
         System.out.println("Enter Order ID: ");
         int orderId = scanner.nextInt();
         scanner.nextLine();
-       
+    
         purchaseOrderManager.receiveDelivery(orderId); 
 
 }
@@ -242,7 +239,7 @@ private static void createCustomerOrder(Scanner scanner) {
         items.add(new CustomerOrder.COItem(productId, quantity, 0));
 
         System.out.print("Add another item? (yes/no): ");
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         addMore = scanner.nextLine();
     } while (addMore.equalsIgnoreCase("yes"));
     
@@ -280,7 +277,6 @@ private static void viewAllCustomerOrders(Scanner scanner) {
             }
         }
     }
-
 
     // Method to send a customer order for case 14
     private static void sendCustomerOrder(Scanner scanner) {
