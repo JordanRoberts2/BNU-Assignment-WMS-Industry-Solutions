@@ -27,18 +27,15 @@ public class PurchaseOrderManager {
         if (foundOrder != null) {
             foundOrder.setStatus("Delivered");
             System.out.println("Purchase Order " + purchaseOrderId + " has been marked as delivered.");
+            for (POItem item : foundOrder.getItems()) {
+                System.out.println("Restocking product ID: " + item.getProductId() + " with quantity: " + item.getQuantity());
+
+                InventoryManager.inventoryManager.restockProduct(item.getProductId(), item.getQuantity());
+
+            }
         } else {
             System.out.println("Purchase Order " + purchaseOrderId + " not found.");
         }
-    
-        // You might want to update the inventory here as well
-        // For example, you could loop through the items in the purchase order and update the inventory accordingly
-        for (POItem item : foundOrder.getItems()) {
-            // Assuming you have an InventoryManager instance to update the stock
-            System.out.println("Restocking product ID: " + item.getProductId() + " with quantity: " + item.getQuantity());
 
-            InventoryManager.inventoryManager.restockProduct(item.getProductId(), item.getQuantity());
-            
-        }
     }
 }

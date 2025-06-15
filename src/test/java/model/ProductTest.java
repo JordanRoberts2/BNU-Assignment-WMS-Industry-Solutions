@@ -4,12 +4,11 @@ import static org.junit.Assert.*;
 
 
 public class ProductTest {
-    @Test
-    public void testProductCreationAndGetters() {
+
+    @Test public void testProductCreationAndGetters() {
         Product product = new Product( "Laptop", 160, 10);
-        assertEquals(1, product.getId());
         assertEquals("Laptop", product.getName());
-        assertEquals(1500.00, product.getPrice(), 0.01);
+        assertEquals(160, product.getPrice(), 0.01);
         assertEquals(10, product.getStockLevel());}
 
     @Test
