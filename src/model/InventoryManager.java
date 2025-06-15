@@ -1,34 +1,9 @@
 package src.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryManager {
-    /*private final int MAX_PRODUCTS = 100;
-    private Product[] products = new Product[MAX_PRODUCTS];
-    private int productCount = 0;
-
-    public boolean addProduct(Product product) {
-        if (productCount < MAX_PRODUCTS) {
-            products[productCount++] = product;
-            System.out.println("Product Count: " + p);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isInventoryEmpty() {
-        return productCount == 0;
-    }
-
-    public Product findProductById(int id) {
-        for (int i = 0; i < productCount; i++) {
-            if (products[i].getId() == id) {
-                return products[i];
-            }
-        }
-        return null;
-    }
-*/
     public static InventoryManager inventoryManager = new InventoryManager();
     private ArrayList<Product> productList = new ArrayList<>();
     
@@ -78,5 +53,15 @@ public Product findProductById(int Id) {
                 System.out.println("ID: " + product.getId() + ", Name: " + product.getName() + ", Stock: " + product.getStockLevel() + ", Price: " + product.getPrice());
             }
         }
+    }
+
+        public List<Product> getLowStockProducts(int threshold) {
+        List<Product> lowStock = new ArrayList<Product>();
+        for (Product product : productList) {
+            if (product.getStockLevel() <= threshold) {
+                lowStock.add(product);
+            }
+        }
+        return lowStock;
     }
 }

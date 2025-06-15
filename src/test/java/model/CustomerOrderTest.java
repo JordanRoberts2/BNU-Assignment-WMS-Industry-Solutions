@@ -4,18 +4,18 @@ public class CustomerOrderTest {
     
     private CustomerOrder order;
     private List<COItem> itemList;
- 
+
     @Before
     public void setUp() {
         itemList = new ArrayList<>();
         itemList.add(new COItem(101, 2, 50.0));
         itemList.add(new COItem(102, 1, 100.0));
- 
+
         order = new CustomerOrder();
         order.setOrderId(1);
         order.setOrderDate(LocalDateTime.now());
         order.setOrderList(itemList);
-        order.setTotalPrice(200.0); // Manually setting for now
+        order.setTotalPrice(200.0);
         order.setStatus("Pending");
     }
     @Test public void testOrderCreation() {
@@ -54,7 +54,7 @@ public class CustomerOrderTest {
         assertEquals("Delivered", order.getStatus());
     }
 
-       
+
     @Test(expected = IllegalArgumentException.class)
     public void testSetInvalidStatus() {
         order.setStatus("In Progress");

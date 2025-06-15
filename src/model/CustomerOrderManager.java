@@ -18,14 +18,12 @@ public class CustomerOrderManager {
         for (CustomerOrder order : customerOrders) {
             if (order.getOrderId() == customerOrderId) {
                 orderToProcess = order;
-              
-                //order.setTotalRevenue(order.calculateTotalRevenue());
-                //System.out.println("Order " + customerOrderId + " has been processed.");
+        
                 break;
             }
         }
     if (orderToProcess != null) {
-          orderToProcess.setStatus("Delivered");
+        orderToProcess.setStatus("Delivered");
             System.out.println("Order " + customerOrderId + " has been processed.");
             // For example, you might want to print the order details
             System.out.println("Order Details: " + orderToProcess);
@@ -41,6 +39,5 @@ public class CustomerOrderManager {
             InventoryManager.inventoryManager.decreaseProduct(item.getProductId(), item.getQuantity());
         }
     }
-
 
 }

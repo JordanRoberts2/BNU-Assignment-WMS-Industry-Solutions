@@ -12,6 +12,7 @@ import src.model.PurchaseOrder;
 import src.model.PurchaseOrderManager;
 import src.model.Supplier;
 import src.model.SupplierManager;
+import src.model.FinancialReport;
 
 class Main {
     
@@ -26,7 +27,7 @@ class Main {
 
         //Creates a few products for BNU Industry Solutions Ltd.
         Product product1 = new Product("Drill", 1500, 10);
-        Product product2 = new Product("Helmet", 500, 5);
+        Product product2 = new Product("Helmet", 500, 2);
         Product product3 = new Product("Safety Glasses", 100, 100);
         Supplier supplier1 = new Supplier("ABC Supplies", "123-4567");
         InventoryManager.inventoryManager.addProduct(product1);
@@ -53,6 +54,10 @@ class Main {
             System.out.println("12. View all customer orders");
             System.out.println("13. View all purchase orders");
             System.out.println("14. Send customer order");
+            System.out.println("15. View Low Stock Alert");
+            System.out.println("16. Show Financial Report");
+
+            System.out.println("0. Exit");
             
             choice = scanner.nextInt();
             scanner.nextLine();
@@ -62,7 +67,7 @@ class Main {
                 case 2 -> restockProduct(scanner); // Restock a product
                 case 3 -> viewInventory(scanner); // View the inventory
                 case 4 -> addSupplierInfo(scanner); // Add a new supplier
-                case 5 -> viewSupplierInfo(scanner); // View one supplier 
+                case 5 -> viewSupplierInfo(scanner); // View one supplier
                 case 6 -> supplierManager.printSupplierInfo(); // View all suppliers
                 case 7 -> deleteSupplier(scanner); // Delete a supplier
                 case 8 -> updateSupplier(scanner); // Update supplier information
@@ -72,6 +77,8 @@ class Main {
                 case 12 -> viewAllCustomerOrders(scanner); // view all customer orders in memory
                 case 13 -> viewAllPurchaseOrders(scanner); // View details of a specific customer order
                 case 14 -> sendCustomerOrder(scanner); // Send customer order
+                case 15 -> lowStockAlert(); // View low stock alert
+                case 16 -> showFinancialReport(); // Show financial report
                 case 0 -> System.out.println("Exiting the system. Goodbye!");
                 }
             
@@ -97,7 +104,7 @@ class Main {
         } else {
             System.out.println("Failed to add product. Inventory might be full. Please try again.");
         }
-    } 
+    }
     
     // Method to restock a product for case 2
     private static void restockProduct(Scanner scanner) {
@@ -120,7 +127,7 @@ class Main {
         }
         System.out.println("Current Inventory:");
         InventoryManager.inventoryManager.printInventory();
-    } 
+    }
 
     // Method to add a supplier for case 4
     private static void addSupplierInfo(Scanner scanner) {
@@ -128,7 +135,7 @@ class Main {
         String name = scanner.nextLine();
         System.out.print("Enter supplier contact details: ");
         String contact = scanner.nextLine();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine(); 
 
         Supplier supplier = new Supplier(name, contact);
             if (supplierManager.addSupplier(supplier)) {
@@ -235,8 +242,10 @@ private static void createCustomerOrder(Scanner scanner) {
         int productId = scanner.nextInt();
         System.out.print("Enter Quantity: ");
         int quantity = scanner.nextInt();
+        System.out.print("Enter Product Price: ");
+        int unitPrice = scanner.nextInt();
 
-        items.add(new CustomerOrder.COItem(productId, quantity, 0));
+        items.add(new CustomerOrder.COItem(productId, quantity, unitPrice));
 
         System.out.print("Add another item? (yes/no): ");
         scanner.nextLine();
@@ -289,5 +298,24 @@ private static void viewAllCustomerOrders(Scanner scanner) {
     }
     
     //Low stock alert method
-    
+    public static void lowStockAlert() {
+        List<Product> lowStockProducts = InventoryManager.inventoryManager.getLowStockProducts(3);
+        if (!lowStockProducts.isEmpty()) {
+            System.out.println("Low stock alert! The following products have less than 3 items in stock:");
+            for (Product product : lowStockProducts) {
+                System.out.println(product.getName() + " - Current Stock: " + product.getStockLevel());
+            }
+        }
+        else {
+            System.out.println("All products are sufficiently stocked.");
+        }
+    }
+
+    private static void showFinancialReport() {
+    List<PurchaseOrder> purchases = purchaseOrderManager.getAllPurchaseOrders();
+    List<CustomerOrder> sales = customerOrderManager.getAllCustomerOrders();
+
+    FinancialReport report = new FinancialReport(purchases, sales);
+    report.printReport();
+}
 }

@@ -17,16 +17,16 @@ public class PurchaseOrderManagerTest {
             this.lastProductId = productId;
             this.lastQuantity = quantity;
         }
- 
+
         public int getLastProductId() {
             return lastProductId;
         }
- 
+
         public int getLastQuantity() {
             return lastQuantity;
         }
     }
- 
+
     private MockInventoryManager mockInventory;
 
     //
@@ -59,9 +59,9 @@ public class PurchaseOrderManagerTest {
         // Should print "Purchase Order 999 not found." 
         }
 
-   @Test public void testRestockProduct() {
+    @Test public void testRestockProduct() {
         purchaseOrderManager.receiveDelivery(1);
         Assertions.assertEquals(10, mockInventory.getLastProductId());
         Assertions.assertEquals(5, mockInventory.getLastQuantity());
-   }
+        }
 }

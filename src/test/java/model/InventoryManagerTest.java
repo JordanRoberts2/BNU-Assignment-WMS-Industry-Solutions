@@ -1,10 +1,10 @@
 package src.test.java.model;
 
 public class InventoryManagerTest {
-  private InventoryManager inventoryManager;
+    private InventoryManager inventoryManager;
     private Product product1;
     private Product product2;
- 
+
     @Before
     public void setUp() {
         inventoryManager = new InventoryManager();
@@ -13,7 +13,7 @@ public class InventoryManagerTest {
     }
     //add product
     @Test public void testAddProduct() {
-       boolean result = inventoryManager.addProduct(product1);
+    boolean result = inventoryManager.addProduct(product1);
         assertTrue(result);
         assertNotNull(inventoryManager.findProductById(1));
     }
@@ -44,22 +44,5 @@ public class InventoryManagerTest {
         inventoryManager.decreaseProduct(1, 3);
         assertEquals (7, product1.getStockLevel());
     }
-
-
-    //private int productCount = 0;
-    //add product function
-    //public boolean addProduct(Product product) {
-   //     productList.add(product);
-     //   productCount++;
-     //   return true;
- //   }
-
-
-    //find product by id
-
-    //restock produc
-
-
-//decrease product
 
 }
