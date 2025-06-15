@@ -1,4 +1,10 @@
-package src.test.java.model;
+package model;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class CustomerOrderManagerTest {
     
@@ -21,8 +27,8 @@ public class CustomerOrderManagerTest {
         itemList.add(item2);
         
         order1.setOrderList(itemList);
-        Product product1 = new Product ("Product A", 101, 100, 10);
-        Product product2 = new Product ("Product B", 102, 50, 5);
+        Product product1 = new Product ("Product A", 101,  10);
+        Product product2 = new Product ("Product B", 102, 5);
         InventoryManager.inventoryManager.addProduct(product1);
         InventoryManager.inventoryManager.addProduct(product2);
         customerOrderManager.addCustomerOrder(order1);

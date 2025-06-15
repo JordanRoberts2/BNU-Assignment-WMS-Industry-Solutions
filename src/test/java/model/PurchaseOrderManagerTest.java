@@ -1,31 +1,29 @@
-package src.test.java.model;
-import model.InventoryManager;
-import model.PurchaseOrder;
-import model.PurchaseOrderManager;
+package model;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import java.util.List;
+import static org.junit.Assert.*;
+
+ class MockInventoryManager extends InventoryManager {
+    private int lastProductId = -1;
+    private int lastQuantity = -1;
+
+    @Override
+    public void restockProduct(int productId, int quantity) {
+        this.lastProductId = productId;
+        this.lastQuantity = quantity;
+    }
+
+    public int getLastProductId() {
+        return lastProductId;
+    }
+
+    public int getLastQuantity() {
+        return lastQuantity;
+    }
+}
+
 public class PurchaseOrderManagerTest {
 
-    static class MockInventoryManager extends InventoryManager {
-        private int lastProductId = -1;
-        private int lastQuantity = -1;
-
-        @Override
-        public void restockProduct(int productId, int quantity) {
-            this.lastProductId = productId;
-            this.lastQuantity = quantity;
-        }
-
-        public int getLastProductId() {
-            return lastProductId;
-        }
-
-        public int getLastQuantity() {
-            return lastQuantity;
-        }
-    }
 
     private MockInventoryManager mockInventory;
 
@@ -34,7 +32,7 @@ public class PurchaseOrderManagerTest {
     private PurchaseOrder purchaseOrder;
 
     @Before public void setUp() {
-        mockInventory = new MockInventory();
+        mockInventory = new MockInventoryManager();
         purchaseOrderManager = new PurchaseOrderManager();
 
         purchaseOrder = new PurchaseOrder();
@@ -46,12 +44,12 @@ public class PurchaseOrderManagerTest {
     }
 
     @Test public void testAddPurchaseOrder() {
-        Assertions.assertEquals(1, purchaseOrderManager.getAllPurchaseOrders().size());
+        assertEquals(1, purchaseOrderManager.getAllPurchaseOrders().size());
     }
     
 @Test public void testReceiveDelivery() {
         purchaseOrderManager.receiveDelivery(1);
-        Assertions.assertEquals("Delivered", purchaseOrder.getDeliveryStatus());
+        assertEquals("Delivered", purchaseOrder.getDeliveryStatus());
     }
 
     @Test public void testReceiveDeliveryInvalidId() {
@@ -61,7 +59,7 @@ public class PurchaseOrderManagerTest {
 
     @Test public void testRestockProduct() {
         purchaseOrderManager.receiveDelivery(1);
-        Assertions.assertEquals(10, mockInventory.getLastProductId());
-        Assertions.assertEquals(5, mockInventory.getLastQuantity());
+        assertEquals(10, mockInventory.getLastProductId());
+        assertEquals(5, mockInventory.getLastQuantity());
         }
 }

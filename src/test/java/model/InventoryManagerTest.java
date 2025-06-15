@@ -1,4 +1,9 @@
-package src.test.java.model;
+package model;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class InventoryManagerTest {
     private InventoryManager inventoryManager;
@@ -8,9 +13,17 @@ public class InventoryManagerTest {
     @Before
     public void setUp() {
         inventoryManager = new InventoryManager();
-        product1 = new Product("Product A", 1, 100, 10);
-        product2 = new Product("Product B", 2, 150, 3);
+        product1 = new Product("Product A", 1,10);
+        product2 = new Product("Product B", 2,3);
     }
+
+    @After
+    public void tearDown() {
+        inventoryManager = null;
+        product1 = null;
+        product2 = null;
+    }
+
     //add product
     @Test public void testAddProduct() {
     boolean result = inventoryManager.addProduct(product1);

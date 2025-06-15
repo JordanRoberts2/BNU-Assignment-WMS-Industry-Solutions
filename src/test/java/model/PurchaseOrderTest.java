@@ -1,6 +1,5 @@
-package src.test.java.model;
-import model.PurchaseOrder;
-import model.PurchaseOrder.POItem;
+package model;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -13,12 +12,13 @@ public class PurchaseOrderTest {
   
         private PurchaseOrder purchaseOrder;
         private List<POItem> itemList;
-
+        private POItem  item1 =  new POItem(201, 5, 20.0);;
+        private POItem  item2 = new POItem(201, 5, 20.0);;
         @Before
         public void setUp() {
             itemList = new ArrayList<>();
-            itemList.add(new POItem(201, 5, 20.0));
-            itemList.add(new POItem(202, 3, 30.0));
+            itemList.add(item1);
+            itemList.add(item2);
 
             purchaseOrder = new PurchaseOrder();
             purchaseOrder.setOrderId(1);
@@ -73,7 +73,7 @@ public class PurchaseOrderTest {
         public void testTotalPriceMatchesExpected() {
              double expectedTotal = (item1.getQuantity() * item1.getUnitCost()) +
              (item2.getQuantity() * item2.getUnitCost());
-             Assertions.assertEquals(expectedTotal, order.getTotalPrice());
+             Assert.assertEquals(expectedTotal, purchaseOrder.getTotalPrice());
     }
 }
 

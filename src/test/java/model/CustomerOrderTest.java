@@ -1,4 +1,11 @@
-package src.test.java.model;
+package model;
+
+import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.util.List;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class CustomerOrderTest {
     
