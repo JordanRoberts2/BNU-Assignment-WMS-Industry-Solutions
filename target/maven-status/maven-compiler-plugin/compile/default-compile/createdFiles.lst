@@ -1,0 +1,14 @@
+model/CustomerOrderManager.class
+model/Product.class
+model/FinancialReport.class
+model/Supplier.class
+model/PurchaseOrder.class
+model/SupplierManager.class
+model/Person.class
+model/InventoryManager.class
+model/PurchaseOrderManager.class
+model/COItem.class
+model/CustomerOrder.class
+model/Customer.class
+model/Main.class
+model/POItem.class
