@@ -213,7 +213,7 @@ private static void createPurchaseOrder(Scanner scanner) {
 
 // Method to receive delivery from a supplier for case 10
     public static void receiveDelivery(Scanner scanner) {  
-        System.out.println("Receiving delivery from supplier (not implemented yet).");
+        System.out.println("Receiving delivery from supplier.");
         System.out.println("Enter Order ID: ");
         int orderId = scanner.nextInt();
         scanner.nextLine();
@@ -264,7 +264,7 @@ private static void viewAllCustomerOrders(Scanner scanner) {
 
     // Method to view all purchase orders for case 13
     private static void viewAllPurchaseOrders(Scanner scanner) {
-        System.out.println("Viewing all purchase orders (not implemented yet).");
+        System.out.println("Viewing all purchase orders.");
 
 
         List<PurchaseOrder> purchaseOrders = purchaseOrderManager.getAllPurchaseOrders();

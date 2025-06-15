@@ -32,7 +32,7 @@ public class SupplierTest {
     @Test
     public void testNoNegativeId() {
         Supplier supplier = new Supplier("Invalid", "invalid.gmail.com");
-        assertTrue(supplier.getId() >= 0); // Assuming ID should not be negative
+        assertTrue(supplier.getId() >= 0); 
     }
 }
 
